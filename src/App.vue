@@ -24,14 +24,13 @@ import HelloWorld from '@/components/HelloWorld.vue'
 @import '@/assets/global.scss';
 
 .container {
-  display: flex;
-  flex-direction: row;
+  @include flex-row;
 }
 
 .pageList {
+  @include flex-col;
   padding: 20px;
-  display: flex;
-  flex-direction: column;
+
 }
 
 .link {
@@ -40,7 +39,7 @@ import HelloWorld from '@/components/HelloWorld.vue'
 }
 
 .sidebarContainer {
-  background: #2c3e50;
+  background: $base-color;
   height: 100vh;
   width: 300px;
 }

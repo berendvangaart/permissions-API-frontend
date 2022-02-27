@@ -8,9 +8,9 @@ import HelloWorld from '@/components/HelloWorld.vue'
     <div class="sidebarContainer">
 <!--      <HelloWorld msg="You did it!" />-->
 
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
+      <nav class="pageList">
+        <RouterLink class="link" to="/">Home</RouterLink>
+        <RouterLink class="link" to="/about">About</RouterLink>
       </nav>
     </div>
 
@@ -20,13 +20,23 @@ import HelloWorld from '@/components/HelloWorld.vue'
   </div>
 </template>
 
-<style>
-
-@import '@/assets/global.css';
+<style lang="scss">
+@import '@/assets/global.scss';
 
 .container {
   display: flex;
   flex-direction: row;
+}
+
+.pageList {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.link {
+  color: white;
+  text-decoration: none;
 }
 
 .sidebarContainer {

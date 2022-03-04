@@ -1,4 +1,6 @@
 pages:
+  tags:
+    - hva
   image: node:latest
   stage: deploy
   script:

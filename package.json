@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@types/axios": "^0.14.0",
+    "mdb-ui-kit": "^3.10.2",
+    "mdb-vue-ui-kit": "^1.10.0",
     "pinia": "^2.0.11",
     "vue": "^3.2.29",
     "vue-router": "^4.0.12",

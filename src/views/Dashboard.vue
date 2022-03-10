@@ -5,7 +5,7 @@ import HelloWorld from '@/components/HelloWorld.vue'
 </script>
 
 <template >
-  <div class="container">
+  <div class="sideCon">
     <div class="sidebarContainer">
       <nav class="pageList">
         <RouterLink class="link" to="/home">Home</RouterLink>
@@ -20,7 +20,7 @@ import HelloWorld from '@/components/HelloWorld.vue'
 <style lang="scss">
 @import '@/assets/global.scss';
 
-.container {
+.sideCon {
   @include flex-row;
 }
 

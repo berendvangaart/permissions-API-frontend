@@ -4,9 +4,7 @@ import Dashboard from '@/views/Dashboard.vue'
 </script>
 
 <template >
-  <div class="container">
-
-<!--    <Dashboard/>-->
+  <div>
 
     <RouterView />
 
@@ -15,6 +13,13 @@ import Dashboard from '@/views/Dashboard.vue'
 </template>
 
 <style lang="scss">
+*{
+  margin: 0;
+  padding: 0;
+}
 
+#app {
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+}
 
 </style>

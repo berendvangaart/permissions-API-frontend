@@ -7,9 +7,8 @@ import HelloWorld from '@/components/HelloWorld.vue'
 <template >
   <div class="container">
     <div class="sidebarContainer">
-
       <nav class="pageList">
-        <RouterLink class="link" to="/">Home</RouterLink>
+        <RouterLink class="link" to="/home">Home</RouterLink>
         <RouterLink class="link" to="/about">About</RouterLink>
       </nav>
     </div>

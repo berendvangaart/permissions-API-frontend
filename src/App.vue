@@ -6,7 +6,9 @@ import Dashboard from '@/views/Dashboard.vue'
 <template >
   <div class="container">
 
-    <Dashboard/>
+<!--    <Dashboard/>-->
+
+    <RouterView />
 
 
   </div>

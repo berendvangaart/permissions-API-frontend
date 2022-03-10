@@ -1,3 +1,33 @@
+<script>
+import { useAuthenticationStore } from "@/stores/auth";
+
+
+
+
+export default {
+  setup() {
+    const store = useAuthenticationStore()
+    store.loginUser('this.email', 'this.password')
+  },
+
+  data() {
+    return {
+      email: '',
+      password: ''
+    }
+  },
+  name: "Login",
+
+  methods: {
+    loginSubmit() {
+      // console.log('trigger');
+      // this.store.loginUser(this.email, this.password)
+    }
+  }
+}
+
+</script>
+
 <template>
   <div class="login">
     <div v-if="loggingIn" class="container-loading">
@@ -13,25 +43,7 @@
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      email: '',
-      password: ''
-    }
-  },
-  name: "Login",
 
-  methods: {
-    loginSubmit() {
-      //todo dispatch
-      console.log(this.email, ' ', this.password);
-    }
-  }
-}
-
-</script>
 
 <style scoped lang="scss">
 .login {

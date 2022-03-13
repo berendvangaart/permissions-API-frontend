@@ -19,7 +19,6 @@ export default {
 
   methods: {
     loginSubmit() {
-      // console.log('trigger');
       this.store.loginUser(this.email, this.password)
     }
   }

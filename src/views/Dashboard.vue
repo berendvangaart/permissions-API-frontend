@@ -13,7 +13,6 @@ import HelloWorld from '@/components/HelloWorld.vue'
         <RouterLink class="link" to="/api">Api</RouterLink>
       </nav>
     </div>
-
     <RouterView />
   </div>
 </template>

@@ -1,13 +1,12 @@
 <script>
 import { useAuthenticationStore } from "@/stores/auth";
 
-
-
-
 export default {
   setup() {
     const store = useAuthenticationStore()
-    store.loginUser('this.email', 'this.password')
+    return {
+      store
+    }
   },
 
   data() {
@@ -21,7 +20,7 @@ export default {
   methods: {
     loginSubmit() {
       // console.log('trigger');
-      // this.store.loginUser(this.email, this.password)
+      this.store.loginUser(this.email, this.password)
     }
   }
 }
@@ -33,12 +32,10 @@ export default {
     <div v-if="loggingIn" class="container-loading">
       <img src="/loading.gif" alt="Loading Icon">
     </div>
-    <p v-if="loginError">{{ loginError }}</p>
-    <p v-if="loginSuccessful">Login Successful</p>
     <form @submit.prevent="loginSubmit">
       <input type="email" placeholder="E-Mail" v-model="email"/>
       <input type="password" placeholder="Password" v-model="password"/>
-      <button type="submit">Login</button>
+      <button  type="submit">Login</button>
     </form>
   </div>
 </template>

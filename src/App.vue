@@ -5,10 +5,7 @@ import Dashboard from '@/views/Dashboard.vue'
 
 <template >
   <div>
-
     <RouterView />
-
-
   </div>
 </template>
 

@@ -3,12 +3,12 @@ import {createNewUser} from "@/admin/create/user";
 import {storeToRefs} from "pinia";
 
 const counterStore = createNewUser();
-const {name, nameCheck, password, passCheck, email, emailCheck, maxLength} = storeToRefs(counterStore)
+const {name, nameCheck, password, passCheck, email, emailCheck, maxLength, errorMessage, succesMessage} = storeToRefs(counterStore)
 </script>
 
 <template>
   <main>
-    <h2>Create new user</h2>
+    <h2 >Create new user</h2>
 
     <form>
       <div class="input-group mb-3" >
@@ -22,7 +22,8 @@ const {name, nameCheck, password, passCheck, email, emailCheck, maxLength} = sto
             :maxlength="maxLength"
         />
       </div>
-      <h4>{{nameCheck}}</h4>
+      <h8>{{nameCheck}}</h8>
+
       <div class="input-group mb-3">
         <h4>Password:</h4>
         <input
@@ -35,7 +36,8 @@ const {name, nameCheck, password, passCheck, email, emailCheck, maxLength} = sto
 
         />
       </div>
-      <h4>{{passCheck}}</h4>
+      <h8>{{passCheck}}</h8>
+
       <div class="input-group mb-3">
         <h4>Email:</h4>
         <input
@@ -46,11 +48,13 @@ const {name, nameCheck, password, passCheck, email, emailCheck, maxLength} = sto
             v-model.trim="email"
         />
       </div>
-      <h4>{{emailCheck}}</h4>
+      <h8>{{emailCheck}}</h8>
 
     </form>
 
     <button @click="counterStore.create()">Create User</button>
+    <h4>{{errorMessage}}</h4>
+    <h4>{{succesMessage}}</h4>
 
 
 

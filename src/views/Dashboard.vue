@@ -12,7 +12,6 @@ import HelloWorld from '@/components/HelloWorld.vue'
         <RouterLink class="link" to="/about">About</RouterLink>
       </nav>
     </div>
-
     <RouterView />
   </div>
 </template>

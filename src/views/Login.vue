@@ -20,6 +20,10 @@ export default {
   methods: {
     loginSubmit() {
       this.store.loginUser(this.email, this.password)
+
+      setTimeout(() => {
+        this.store.isLogeddIn? this.$router.push( '/dashboard') : console.error('no')
+      }, 500);
     }
   }
 }

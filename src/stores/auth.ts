@@ -8,7 +8,9 @@ export const useAuthenticationStore = defineStore({
     loginSucces: false
   }),
   getters: {
+    getToken: state => state.token,
 
+    isLogeddIn: state => state.loginSucces
   },
   actions: {
     async loginUser(login: string, password: string) {
@@ -22,11 +24,16 @@ export const useAuthenticationStore = defineStore({
       const data = await res.json();
 
       if (res.status === 200) {
-        console.log(data);
         this.token = data.token;
         this.loginSucces = true;
         this.userData = data.user;
       }
+    },
+
+    logout() {
+      this.token = ""
+      this. loginSucces = false
+      this.userData = ""
     }
   }
 });

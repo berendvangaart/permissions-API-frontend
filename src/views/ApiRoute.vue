@@ -52,10 +52,10 @@ export default {
       axios.get("http://127.0.0.1:8000/api/apis/" + this.apiId + "/routes")
           .then((response) => {
             this.api = response.data
-            console.log(response.data)
           })
           .catch((error) => {
-            console.log(error)
+            // TODO error handling
+            this.api = error
           })
     }
   },

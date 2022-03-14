@@ -29,7 +29,7 @@ export const createNewUser = defineStore({
 
             //Check password
             if (this.password.length < 5) {
-                this.passCheck = "Check password input field"
+                this.passCheck = "Password must be at least 6 characters long"
                 foundIssue = true
             } else {
                 this.passCheck = ""

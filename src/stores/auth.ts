@@ -1,28 +1,40 @@
-import {defineStore} from "pinia";
+import { defineStore } from "pinia";
 
 export const useAuthenticationStore = defineStore({
-  id: 'auth',
+  id: "auth",
   state: () => ({
-  userData: '',
-  loginSucces: false
-}),
+    userData: "",
+    token: "",
+    loginSucces: false
+  }),
   getters: {
+    getToken: state => state.token,
 
-},
+    isLogeddIn: state => state.loginSucces
+  },
   actions: {
     async loginUser(login: string, password: string) {
-      console.log(login, password);
-      this.userData = 'test'
-      try {
 
-        //const res = await fetch()
-        //todo set userdata from res
+      const res = await fetch("http://localhost:8000/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: login, password: password })
+      });
 
-      } catch (error) {
-        console.log(error);
+      const data = await res.json();
+
+      if (res.status === 200) {
+        this.token = data.token;
+        this.loginSucces = true;
+        this.userData = data.user;
       }
     },
 
-
+    logout() {
+      this.token = ""
+      this. loginSucces = false
+      this.userData = ""
+    }
   }
-})
+});
+

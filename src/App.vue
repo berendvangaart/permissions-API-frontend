@@ -10,7 +10,7 @@ import Dashboard from '@/views/Dashboard.vue'
 </template>
 
 <style lang="scss">
-*{
+* {
   margin: 0;
   padding: 0;
 }

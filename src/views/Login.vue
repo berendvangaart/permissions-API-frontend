@@ -22,7 +22,7 @@ export default {
       this.store.loginUser(this.email, this.password)
 
       setTimeout(() => {
-        this.store.isLogeddIn? this.$router.push( '/dashboard') : console.error('no')
+        this.store.isLogeddIn? this.$router.push( '/dashboard') : console.error('user is not authenticated')
       }, 500);
     }
   }
@@ -31,21 +31,55 @@ export default {
 </script>
 
 <template>
-  <div class="login">
-    <div v-if="loggingIn" class="container-loading">
-      <img src="/loading.gif" alt="Loading Icon">
+  <div class="container">
+  <form class="form-container" @submit.prevent="loginSubmit">
+    <!-- Email input -->
+    <div class="form-outline mb-4">
+      <input type="email" id="form1Example1" class="form-control" v-model="email"/>
+      <label class="form-label" for="form1Example1">Email address</label>
     </div>
-    <form @submit.prevent="loginSubmit">
-      <input type="email" placeholder="E-Mail" v-model="email"/>
-      <input type="password" placeholder="Password" v-model="password"/>
-      <button  type="submit">Login</button>
-    </form>
+
+    <!-- Password input -->
+    <div class="form-outline mb-4">
+      <input type="password" id="form1Example2" class="form-control" v-model="password"/>
+      <label class="form-label" for="form1Example2">Password</label>
+    </div>
+
+    <!-- 2 column grid layout for inline styling -->
+    <div class="row mb-4">
+      <div class="col d-flex justify-content-center">
+        <!-- Checkbox -->
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="form1Example3" checked />
+          <label class="form-check-label" for="form1Example3"> Remember me </label>
+        </div>
+      </div>
+
+      <div class="col">
+        <!-- Simple link -->
+        <a href="#!">Forgot password?</a>
+      </div>
+    </div>
+
+    <!-- Submit button -->
+    <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+  </form>
   </div>
 </template>
 
 
-
 <style scoped lang="scss">
+
+.container {
+  margin-top: 300px;
+  display: flex;
+  justify-content: center;
+}
+
+.form-container {
+  width: 450px;
+}
+
 .login {
   border: 1px solid black;
   border-radius: 5px;

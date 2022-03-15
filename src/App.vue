@@ -1,22 +1,11 @@
-<script setup lang="ts">
-import Dashboard from '@/views/Dashboard.vue'
-
-</script>
-
-<template >
-  <div>
-    <RouterView />
-  </div>
+<template>
+  <router-view />
 </template>
 
-<style lang="scss">
-* {
-  margin: 0;
-  padding: 0;
-}
+<script lang="ts">
+import { defineComponent } from 'vue';
 
-#app {
-  font-family: Roboto, Helvetica, Arial, sans-serif;
-}
-
-</style>
+export default defineComponent({
+  name: 'App'
+});
+</script>

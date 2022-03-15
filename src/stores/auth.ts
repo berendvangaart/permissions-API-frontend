@@ -1,23 +1,21 @@
-import { defineStore } from "pinia";
+import { defineStore } from 'pinia';
 
 export const useAuthenticationStore = defineStore({
-  id: "auth",
+  id: 'auth',
   state: () => ({
-    userData: "",
-    token: "",
+    userData: '',
+    token: '',
     loginSucces: false
   }),
   getters: {
     getToken: state => state.token,
-
     isLogeddIn: state => state.loginSucces
   },
   actions: {
     async loginUser(login: string, password: string) {
-
-      const res = await fetch("http://localhost:8000/api/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      const res = await fetch('http://localhost:8000/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: login, password: password })
       });
 
@@ -31,9 +29,9 @@ export const useAuthenticationStore = defineStore({
     },
 
     logout() {
-      this.token = ""
+      this.token = ''
       this. loginSucces = false
-      this.userData = ""
+      this.userData = ''
     }
   }
 });

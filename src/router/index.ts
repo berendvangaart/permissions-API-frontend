@@ -3,6 +3,7 @@ import HomeView from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Dashboard from '../views/Dashboard.vue'
 import ApiView from '../views/ApiView.vue'
+import AdminCreateUser from '../views/AdminCreateUser.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -24,6 +25,11 @@ const router = createRouter({
           // this generates a separate chunk (About.[hash].js) for this route
           // which is lazy-loaded when the route is visited.
           component: () => import('../views/AboutView.vue')
+        },
+        {
+          path: '/admin/createUser',
+          name: 'adminCreateUser',
+          component: AdminCreateUser
         },
         {
           path: '/api',

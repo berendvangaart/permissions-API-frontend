@@ -10,6 +10,7 @@ import HelloWorld from '@/components/HelloWorld.vue'
       <nav class="pageList">
         <RouterLink class="link" to="/home">Home</RouterLink>
         <RouterLink class="link" to="/about">About</RouterLink>
+        <RouterLink class="link" to="/admin/createUser">Admin/Create_user</RouterLink>
         <RouterLink class="link" to="/api">Api</RouterLink>
       </nav>
     </div>

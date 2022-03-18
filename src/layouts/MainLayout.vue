@@ -19,31 +19,62 @@
     </q-header>
 
     <q-drawer
-      style="height: calc(100% - 150px); margin-top: 150px; border-right: 1px solid #ddd"
-      v-model="leftDrawerOpen"
+      v-model="drawer"
       show-if-above
-      bordered
+      :width="250"
+      :breakpoint="450"
     >
-      <q-list>
-        <q-item-label
-          header
-        >
-          Menu
-        </q-item-label>
+      <q-scroll-area style="height: calc(100% - 150px); margin-top: 150px; border-right: 1px solid #ddd">
+        <q-list padding>
+          <q-item clickable v-ripple>
+            <q-item-section avatar>
+              <q-icon name="home" />
+            </q-item-section>
 
-        <EssentialLink
-          v-for="link in essentialLinks"
-          :key="link.title"
-          v-bind="link"
-        />
-      </q-list>
+            <q-item-section>
+              Home
+            </q-item-section>
+          </q-item>
+
+          <q-item active clickable v-ripple :to="{name:'api'}">
+            <q-item-section avatar>
+              <q-icon name="question_mark" />
+            </q-item-section>
+
+            <q-item-section>
+              Api
+            </q-item-section>
+          </q-item>
+
+          <q-item clickable v-ripple :to="{name:'adminCreateUser'}">
+            <q-item-section avatar>
+              <q-icon name="person" />
+            </q-item-section>
+
+            <q-item-section>
+              Create User
+            </q-item-section>
+          </q-item>
+
+          <q-item clickable v-ripple @click="logoutUser()">
+            <q-item-section avatar>
+              <q-icon name="question_mark" />
+            </q-item-section>
+
+            <q-item-section>
+              Logout
+            </q-item-section>
+          </q-item>
+        </q-list>
+      </q-scroll-area>
+
       <q-img class="absolute-top" src="https://cdn.quasar.dev/img/material.png" style="height: 150px">
         <div class="absolute-bottom bg-transparent">
           <q-avatar size="56px" class="q-mb-sm">
             <img src="https://cdn.quasar.dev/img/boy-avatar.png">
           </q-avatar>
-          <div class="text-weight-bold">JArdjuh</div>
-          <div>Is bezig met copy pasta</div>
+          <div class="text-weight-bold">Razvan Stoenescu</div>
+          <div>@rstoenescu</div>
         </div>
       </q-img>
     </q-drawer>
@@ -56,27 +87,8 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import EssentialLink from 'components/EssentialLink.vue';
 
 const linksList = [
-  {
-    title: 'Home',
-    caption: 'Where the magic happens',
-    icon: 'home',
-    link: '/'
-  },
-  {
-    title: 'Api',
-    caption: 'Where the magic happens',
-    icon: 'question_mark',
-    link: '/api'
-  },
-  {
-    title: 'Create user',
-    caption: 'Where the magic happens',
-    icon: 'person',
-    link: '/createUser'
-  },
   {
     title: 'Logout',
     caption: 'Where the magic happens',
@@ -88,19 +100,21 @@ const linksList = [
 export default defineComponent({
   name: 'MainLayout',
 
-  components: {
-    EssentialLink
-  },
-
   setup () {
-    const leftDrawerOpen = ref(false)
+    const drawer = ref(false)
 
     return {
       essentialLinks: linksList,
-      leftDrawerOpen,
+      drawer,
       toggleLeftDrawer () {
-        leftDrawerOpen.value = !leftDrawerOpen.value
+        drawer.value = !drawer.value
       }
+    }
+  },
+  methods: {
+    logoutUser(){
+      alert("hasllo berend");
+      // Doe maar berend;
     }
   }
 });

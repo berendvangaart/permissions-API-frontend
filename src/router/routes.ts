@@ -21,6 +21,11 @@ const routes: RouteRecordRaw[] = [
         component: () => import('pages/AdminCreateUser.vue')
       },
       {
+        path: '/createApi',
+        name: 'createApi',
+        component: () => import('pages/CreateApi.vue')
+      },
+      {
         path: '/api',
         name: 'api',
         component: () => import('pages/ApiView.vue')

@@ -78,6 +78,12 @@ const linksList = [
     link: '/createUser'
   },
   {
+    title: 'Create api',
+    caption: 'Where the magic happens',
+    icon: 'question_mark',
+    link: '/createApi'
+  },
+  {
     title: 'Logout',
     caption: 'Where the magic happens',
     icon: 'question_mark',

@@ -26,7 +26,7 @@ export default {
       this.store.loginUser(this.email, this.password)
       setTimeout(() => {
         this.store.isLogeddIn? this.$router.push( '/index') : console.error('user is not authenticated')
-      }, 500);
+      }, 1500);
     }
   }
 }

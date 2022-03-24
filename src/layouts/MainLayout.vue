@@ -38,7 +38,7 @@
 
           <q-item active clickable v-ripple :to="{name:'api'}">
             <q-item-section avatar>
-              <q-icon name="question_mark" />
+              <q-icon name="http" />
             </q-item-section>
 
             <q-item-section>
@@ -46,9 +46,19 @@
             </q-item-section>
           </q-item>
 
+          <q-item clickable v-ripple :to="{name:'roles'}">
+            <q-item-section avatar>
+              <q-icon name="groups" />
+            </q-item-section>
+
+            <q-item-section>
+              Roles
+            </q-item-section>
+          </q-item>
+
           <q-item clickable v-ripple :to="{name:'adminCreateUser'}">
             <q-item-section avatar>
-              <q-icon name="person" />
+              <q-icon name="person_add" />
             </q-item-section>
 
             <q-item-section>
@@ -56,9 +66,11 @@
             </q-item-section>
           </q-item>
 
+
+
           <q-item clickable v-ripple @click="logoutUser()">
             <q-item-section avatar>
-              <q-icon name="question_mark" />
+              <q-icon name="logout" />
             </q-item-section>
 
             <q-item-section>
@@ -69,12 +81,12 @@
       </q-scroll-area>
 
       <q-img class="absolute-top" src="https://cdn.quasar.dev/img/material.png" style="height: 150px">
-        <div class="absolute-bottom bg-transparent">
+        <div v-if="user" class="absolute-bottom bg-transparent">
           <q-avatar size="56px" class="q-mb-sm">
             <img src="https://cdn.quasar.dev/img/boy-avatar.png">
           </q-avatar>
-          <div class="text-weight-bold">Razvan Stoenescu</div>
-          <div>@rstoenescu</div>
+          <div class="text-weight-bold">{{ user.name }}</div>
+          <div>{{ user.email }}</div>
         </div>
       </q-img>
     </q-drawer>
@@ -87,14 +99,16 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
+import { useAuthenticationStore } from '../stores/auth';
 
 export default defineComponent({
   name: 'MainLayout',
-
   setup () {
+    const store = useAuthenticationStore()
     const drawer = ref(false)
 
     return {
+      user: store.userData,
       drawer,
       toggleLeftDrawer () {
         drawer.value = !drawer.value
@@ -103,8 +117,7 @@ export default defineComponent({
   },
   methods: {
     logoutUser(){
-      alert("hasllo berend");
-      // Doe maar berend;
+      //TODO logout user, cause this doesnt work
     }
   }
 });

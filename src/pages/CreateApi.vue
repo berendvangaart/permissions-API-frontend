@@ -1,44 +1,74 @@
-<script setup lang="ts">
-import {createNewApi} from '../components/api';
-import {storeToRefs} from 'pinia';
+<template>
+  <div class="container">
 
-const counterStore = createNewApi();
-const {name, nameCheck, basePath, basePathCheck, maxLength, errorMessage, succesMessage} = storeToRefs(counterStore)
+    <h4 style="margin: 10px"> Create a new api </h4>
+    <div style="margin: 10px">
+      <form>
+        <input v-model="api.name" label="Api name" placeholder="Api Name"/>
+        <input v-model="api.base_path" label="Api path" placeholder="Api Path"/>
+        <input v-model="api.user_id" label="Api path" placeholder="Api User"/>
+      </form>
+      <div class="button-container-bottom-right" style="margin-top: 10px">
+      <q-btn @click="addApi()" icon="edit" color="green">Save api</q-btn>
+      <q-btn @click="returnToApiView()" icon-left="arrow" color="blue">return</q-btn>
+    </div>
+  </div>
+  </div>
+</template>
+
+<script>
+import axios from 'axios';
+import {useQuasar} from 'quasar';
+
+export default {
+  data() {
+    const $q = useQuasar()
+    return {
+      toggleEdit: true,
+      api: {},
+      triggerSuccess(message) {
+        $q.notify({
+          type: 'info',
+          message: message
+        })
+      },
+      triggerWarning(message) {
+        $q.notify({
+          type: 'warning',
+          message: message
+        })
+      },
+    }
+  },
+  name: 'CreateApi',
+  methods: {
+    addApi() {
+      axios.post('http://127.0.0.1:8000/api/apis', this.api)
+        .then((response) => {
+          this.api = response.data
+          this.triggerSuccess('Api has succesfully been added')
+          this.returnToApiView()
+        })
+        .catch((error) => {
+          this.triggerWarning(error.toString())
+        })
+    },
+    returnToApiView() {
+      this.$router.push({name: 'api'})
+    }
+  }
+
+}
+
 </script>
 
-<template>
-  <main>
-    <h2>Create new api</h2>
+<style scoped lang="scss">
+.roleButton {
+  display: flex;
+}
 
-    <form>
-      <div class="input-group mb-3">
-        <h4>Api name:</h4>
-        <input
-          type="text"
-          class="form-control"
-          aria-label="Api name"
-          aria-describedby="basic-addon1"
-          v-model.trim="name"
-          :maxlength="maxLength"
-        />
-      </div>
-      <h8>{{ nameCheck }}</h8>
-
-      <div class="input-group mb-3">
-        <h4>Url:</h4>
-        <input
-          type="text"
-          class="form-control"
-          aria-label="Path"
-          aria-describedby="basic-addon1"
-          v-model.trim="basePath"
-        />
-      </div>
-      <h8>{{ basePathCheck }}</h8>
-
-    </form>
-    <button @click="counterStore.create()">Create Api</button>
-    <h4>{{ errorMessage }}</h4>
-    <h4>{{ succesMessage }}</h4>
-  </main>
-</template>
+.roleButton > i.fas {
+  padding-left: 5px;
+  margin-top: 3px;
+}
+</style>

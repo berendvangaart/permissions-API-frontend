@@ -32,5 +32,14 @@ export default route(function (/* { store, ssrContext } */) {
     history: createHistory(process.env.VUE_ROUTER_BASE),
   });
 
+  // Router.beforeEach((to, from) => {
+  //   const store = useAuthenticationStore()
+  //
+  //   if (store.isLogeddIn) {
+  //     return true
+  //   }
+  //   return to.name == 'login';
+  // })
+
   return Router;
 });

@@ -3,13 +3,13 @@ import {RouteRecordRaw} from 'vue-router';
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
+    name: 'login',
+    component: () => import('pages/LoginPage.vue')
+  },
+  {
+    path: '/dashboard',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      {
-        path: '/',
-        name: 'login',
-        component: () => import('pages/LoginPage.vue')
-      },
       {
         name: 'home',
         path: '/index',
@@ -21,9 +21,14 @@ const routes: RouteRecordRaw[] = [
         component: () => import('pages/AdminCreateUser.vue')
       },
       {
-        path: '/createApi',
-        name: 'createApi',
-        component: () => import('pages/CreateApi.vue')
+        path: '/roles',
+        name: 'roles',
+        component: () => import('pages/RolesView.vue')
+      },
+      {
+        path: '/roles/:id',
+        name: 'role',
+        component: () => import('pages/RoleView.vue')
       },
       {
         path: '/api',

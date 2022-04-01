@@ -9,34 +9,34 @@
         <span><strong>Base url: {{ api.base_path }}</strong></span>
       </div>
       <div class="col-9">
-<!--        <table variant="light" hover >-->
-<!--          <thead>-->
-<!--            <tr>-->
-<!--              <th scope="col">Name</th>-->
-<!--              <th scope="col">Path</th>-->
-<!--              <th scope="col">Option</th>-->
-<!--              <th scope="col">Roles</th>-->
-<!--            </tr>-->
-<!--          </thead>-->
-<!--          <tbody v-for="route in api.routes" :key="route.id">-->
-<!--            <tr>-->
-<!--              <th scope="row">{{route.name}}</th>-->
-<!--              <td>{{route.path}}</td>-->
-<!--              <td>{{ route.route_type }}</td>-->
-<!--              <td>-->
-<!--&lt;!&ndash;                <MDBBtn class="roleButton" color="primary" rounded v-for="role in route.roles">&ndash;&gt;-->
-<!--&lt;!&ndash;                  {{role.name}} <MDBIcon icon="times" />&ndash;&gt;-->
-<!--&lt;!&ndash;                </MDBBtn>&ndash;&gt;-->
-<!--              </td>-->
-<!--            </tr>-->
-<!--          </tbody>-->
-<!--        </table>-->
-<!--        <q-table-->
-<!--          title="All routes"-->
-<!--          :rows="api.routes"-->
-<!--          :columns="columns"-->
-<!--          row-key="name"-->
-<!--        />-->
+        <!--        <table variant="light" hover >-->
+        <!--          <thead>-->
+        <!--            <tr>-->
+        <!--              <th scope="col">Name</th>-->
+        <!--              <th scope="col">Path</th>-->
+        <!--              <th scope="col">Option</th>-->
+        <!--              <th scope="col">Roles</th>-->
+        <!--            </tr>-->
+        <!--          </thead>-->
+        <!--          <tbody v-for="route in api.routes" :key="route.id">-->
+        <!--            <tr>-->
+        <!--              <th scope="row">{{route.name}}</th>-->
+        <!--              <td>{{route.path}}</td>-->
+        <!--              <td>{{ route.route_type }}</td>-->
+        <!--              <td>-->
+        <!--&lt;!&ndash;                <MDBBtn class="roleButton" color="primary" rounded v-for="role in route.roles">&ndash;&gt;-->
+        <!--&lt;!&ndash;                  {{role.name}} <MDBIcon icon="times" />&ndash;&gt;-->
+        <!--&lt;!&ndash;                </MDBBtn>&ndash;&gt;-->
+        <!--              </td>-->
+        <!--            </tr>-->
+        <!--          </tbody>-->
+        <!--        </table>-->
+        <!--        <q-table-->
+        <!--          title="All routes"-->
+        <!--          :rows="api.routes"-->
+        <!--          :columns="columns"-->
+        <!--          row-key="name"-->
+        <!--        />-->
 
 
         <q-table
@@ -121,14 +121,14 @@ export default {
   methods: {
     getApiRoutes() {
       axios.get('http://127.0.0.1:8000/api/apis/' + this.apiId + '/routes')
-          .then((response) => {
-            console.log(response.data)
-            this.api = response.data
-          })
-          .catch((error) => {
-            // TODO error handling
-            this.api = error
-          })
+        .then((response) => {
+          console.log(response.data)
+          this.api = response.data
+        })
+        .catch((error) => {
+          // TODO error handling
+          this.api = error
+        })
     },
     log (desert) {
       // console.log(`${desert} has been removed`)

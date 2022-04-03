@@ -15,12 +15,7 @@ export const useAuthenticationStore = defineStore({
   actions: {
     async loginUser(login: string, password: string) {
 
-      if (process.env.DEV) {
-        console.log('test')
-        console.log(`I'm on a development build`, process.env['BASE.URL '])
-      }
-
-        const res = await fetch('http://localhost:8000/api/login', {
+        const res = await fetch(`${process.env.API_URL}/api/login`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email: login, password: password })

@@ -77,7 +77,7 @@ export default {
     }
   },
   async mounted() {
-    await fetch('http://127.0.0.1:8000/api/apis/')
+    await fetch(`${process.env.API_URL}/api/apis/`)
         .then(response => response.json())
         .then(data => (this.apiData = data));
   },

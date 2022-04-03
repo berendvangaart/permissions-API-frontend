@@ -77,7 +77,7 @@ export default {
     }
   },
   async mounted() {
-    await fetch('http://127.0.0.1:8000/api/roles')
+    await fetch(`${process.env.API_URL}/api/roles`)
       .then(response => response.json())
       .then(data => (this.rolesData = data));
   },

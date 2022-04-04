@@ -100,7 +100,7 @@ export default {
   name: 'roleRoute',
   methods: {
     getRoleRoutes() {
-      axios.get('http://127.0.0.1:8000/api/roles/' + this.roleId)
+      axios.get(`${process.env.API_URL}api/roles/` + this.roleId)
         .then((response) => {
           this.role = response.data
         })
@@ -109,7 +109,7 @@ export default {
         })
     },
     updateRole() {
-      axios.put('http://127.0.0.1:8000/api/roles/' + this.roleId, this.role)
+      axios.put(`${process.env.API_URL}api/roles/` + this.roleId, this.role)
         .then((response) => {
           this.role = response.data
           this.triggerSuccess('Role has succesfully been updated')
@@ -121,7 +121,7 @@ export default {
         })
     },
     deleteUserFromRole(id) {
-      axios.delete('http://127.0.0.1:8000/api/users/'+ id +'/removerole/' + this.roleId)
+      axios.delete(`${process.env.API_URL}api/users/`+ id +'/removerole/' + this.roleId)
         .then((response) => {
           this.role = response.data
           this.triggerSuccess('User has succesfully been removed')

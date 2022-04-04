@@ -47,8 +47,6 @@
 </template>
 
 <script>
-import {route} from 'quasar/wrappers';
-
 const columns = [
   {
     name: 'Name',

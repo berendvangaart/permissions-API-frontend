@@ -6,7 +6,6 @@
       <form>
         <input v-model="api.name" label="Api name" placeholder="Api Name"/>
         <input v-model="api.base_path" label="Api path" placeholder="Api Path"/>
-        <input v-model="api.user_id" label="Api path" placeholder="Api User"/>
       </form>
       <div class="button-container-bottom-right" style="margin-top: 10px">
       <q-btn @click="addApi()" icon="edit" color="green">Save api</q-btn>
@@ -19,11 +18,15 @@
 <script>
 import axios from 'axios';
 import {useQuasar} from 'quasar';
+import {useAuthenticationStore} from "../stores/auth";
 
 export default {
   data() {
+    const store = useAuthenticationStore()
     const $q = useQuasar()
+
     return {
+      user: store.userData,
       toggleEdit: true,
       api: {},
       triggerSuccess(message) {
@@ -43,6 +46,7 @@ export default {
   name: 'CreateApi',
   methods: {
     addApi() {
+      this.api.user_id = this.user.id;
       axios.post('http://127.0.0.1:8000/api/apis', this.api)
         .then((response) => {
           this.api = response.data

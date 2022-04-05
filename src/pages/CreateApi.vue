@@ -57,7 +57,7 @@ export default {
         })
     },
     returnToApiView() {
-      this.$router.push({name: 'api'})
+      this.$router.push({name: 'apis'})
     }
   }
 

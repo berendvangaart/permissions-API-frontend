@@ -1,4 +1,10 @@
 <template>
+  <div class="flex justify-between" v-if="apisData">
+    <h4>All api's </h4>
+    <div class="button-container-top-right">
+      <q-btn icon="add" color="blue" @click="toAdd"> Create new</q-btn>
+    </div>
+  </div>
   <div class="d-flex justify-content-center">
     <q-table
       v-if="apisData"
@@ -30,13 +36,15 @@
             :key="col.name"
             :props="props"
           >
-            <q-btn color="blue"  icon-right="arrow_forward" v-if="col.name === 'Name'" @click="redirect(props.row)">  {{col.value}}</q-btn>
+            <q-btn color="blue" icon-right="arrow_forward" v-if="col.name === 'Name'" @click="redirect(props.row)">
+              {{ col.value }}
+            </q-btn>
             <span v-if="col.name !== 'Name'">{{ col.value }}</span>
-<!--            <div v-if="col.name === 'Roles'">-->
-<!--              <q-chip v-for="role in col.value" :key="role.id" color="primary" text-color="white" icon="person">-->
-<!--                {{ role.name }}-->
-<!--              </q-chip>-->
-<!--            </div>-->
+            <!--            <div v-if="col.name === 'Roles'">-->
+            <!--              <q-chip v-for="role in col.value" :key="role.id" color="primary" text-color="white" icon="person">-->
+            <!--                {{ role.name }}-->
+            <!--              </q-chip>-->
+            <!--            </div>-->
           </q-td>
         </q-tr>
       </template>
@@ -56,8 +64,8 @@ const columns = [
     sortable: true
   },
 
-   { name: 'Base path', label: 'Path', align: 'left', field: row => row.base_path, sortable: true },
-   // { name: 'Routes', align: 'center', label: 'Routes', field: row => console.log(row), sortable: true },
+  {name: 'Base path', label: 'Path', align: 'left', field: row => row.base_path, sortable: true},
+  // { name: 'Routes', align: 'center', label: 'Routes', field: row => console.log(row), sortable: true },
   // { name: 'Roles', label: 'Roles', field: row => row.roles },
 ]
 export default {
@@ -70,7 +78,7 @@ export default {
   },
   methods: {
     redirect(row) {
-      this.$router.push({name: 'ApiRoute', params: {id: row.id}})
+      this.$router.push({name: 'apiRoute', params: {id: row.id}})
     },
     toAdd() {
       this.$router.push({name: 'CreateApi'})
@@ -78,8 +86,8 @@ export default {
   },
   async mounted() {
     await fetch(`${process.env.API_URL}/apis/`)
-        .then(response => response.json())
-        .then(data => (this.apisData = data));
+      .then(response => response.json())
+      .then(data => (this.apisData = data));
   },
 }
 </script>

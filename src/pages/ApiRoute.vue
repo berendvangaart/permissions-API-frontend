@@ -1,12 +1,28 @@
 <template>
   <div class="container">
 
+
     <div class="row">
       <h1 v-if="api">Api routes for <strong>{{ api.name }}</strong></h1>
     </div>
     <div class="api row">
       <div class="col-3">
-        <span><strong>Base url: {{ api.base_path }}</strong></span>
+        <div class="flex justify-between">
+          <div class="button-container-top">
+            <div v-if="toggleEdit" class="col-3">
+              <span><strong>Base url: {{ api.base_path }}</strong></span>
+              <div></div>
+              <span><strong>Name: {{ api.name }}</strong></span>
+            </div>
+            <div v-if="!toggleEdit" class="col-3">
+              <q-input v-model="api.base_path" label="Api Base Path"/>
+              <q-input v-model="api.name" label="Api Name"/>
+            </div>
+            <q-btn v-if="toggleEdit" @click="toggleEditing()" icon="edit" color="blue"> edit</q-btn>
+            <q-btn v-if="!toggleEdit" @click="updateApi()" icon="edit" color="green"> Save edit</q-btn>
+            <q-btn @click="deleteApi()" icon="delete" color="red">Delete Api</q-btn>
+          </div>
+        </div>
       </div>
       <div class="col-9">
         <!--        <table variant="light" hover >-->
@@ -65,7 +81,8 @@
           <template v-slot:body="props">
             <q-tr :props="props">
               <q-td auto-width>
-                <q-btn size="sm" color="accent" round dense @click="props.expand = !props.expand" :icon="props.expand ? 'remove' : 'add'"></q-btn>
+                <q-btn size="sm" color="accent" round dense @click="props.expand = !props.expand"
+                       :icon="props.expand ? 'remove' : 'add'"></q-btn>
               </q-td>
               <q-td
                 v-for="col in props.cols"
@@ -95,6 +112,8 @@
 </template>
 <script>
 import axios from 'axios';
+import {useQuasar} from "quasar";
+
 const columns = [
   {
     name: 'Name',
@@ -104,17 +123,31 @@ const columns = [
     field: row => row.id,
     sortable: true
   },
-  { name: 'Path', label: 'Path', align: 'left', field: row => row.path, sortable: true },
-  { name: 'Route_type', align: 'center', label: 'HttpType', field: row => row.route_type, sortable: true },
-  { name: 'Roles', label: 'Roles', field: row => row.roles },
+  {name: 'Path', label: 'Path', align: 'left', field: row => row.path, sortable: true},
+  {name: 'Route_type', align: 'center', label: 'HttpType', field: row => row.route_type, sortable: true},
+  {name: 'Roles', label: 'Roles', field: row => row.roles},
 ]
 export default {
   data() {
+    const $q = useQuasar()
     return {
+      toggleEdit: true,
       api: {},
       columns,
       // TODO hand selected Api object to include selected api beforehand
       apiId: this.$route.params.id,
+      triggerSuccess(message) {
+        $q.notify({
+          type: 'info',
+          message: message
+        })
+      },
+      triggerWarning(message) {
+        $q.notify({
+          type: 'warning',
+          message: message
+        })
+      },
     }
   },
   name: 'ApiRoute',
@@ -130,7 +163,34 @@ export default {
           this.api = error
         })
     },
-    log (desert) {
+    updateApi() {
+      axios.put(`${process.env.API_URL}/apis/` + this.apiId, this.api)
+        .then((response) => {
+          this.api = response.data
+          this.triggerSuccess('Api has succesfully been updated')
+          this.toggleEditing()
+        })
+        .catch((error) => {
+          this.triggerWarning(error.toString())
+          this.toggleEditing()
+        })
+    },
+    toggleEditing() {
+      this.toggleEdit = !this.toggleEdit
+    },
+    deleteApi() {
+      axios.delete(`${process.env.API_URL}/apis/` + this.apiId)
+        .then((response) => {
+          this.api = response.data
+          this.triggerSuccess('Api has succesfully been removed')
+          this.$router.push({name: 'apis'})
+        })
+        .catch((error) => {
+          this.triggerWarning(error.toString())
+        })
+    },
+
+    log(desert) {
       // console.log(`${desert} has been removed`)
     }
 
@@ -142,10 +202,11 @@ export default {
 </script>
 <style scoped lang="scss">
 .roleButton {
-  display:flex;
+  display: flex;
 }
+
 .roleButton > i.fas {
-  padding-left:5px;
-  margin-top:3px;
+  padding-left: 5px;
+  margin-top: 3px;
 }
 </style>

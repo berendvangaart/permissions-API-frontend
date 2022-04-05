@@ -27,7 +27,6 @@ export default {
 
     return {
       user: store.userData,
-      toggleEdit: true,
       api: {},
       triggerSuccess(message) {
         $q.notify({

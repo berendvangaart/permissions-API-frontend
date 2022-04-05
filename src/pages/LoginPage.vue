@@ -1,5 +1,6 @@
 <script>
 import { useAuthenticationStore } from '../stores/auth';
+import { useQuasar } from 'quasar';
 
 export default {
   setup() {
@@ -10,9 +11,17 @@ export default {
   },
 
   data() {
+    const $q = useQuasar();
     return {
+      loader:false,
       email: '',
-      password: ''
+      password: '',
+      triggerWarning (message) {
+        $q.notify({
+          type: 'warning',
+          message: message
+        })
+      },
     }
   },
   name: 'LoginPage',
@@ -23,10 +32,17 @@ export default {
   },
   methods: {
     loginSubmit() {
-      this.store.loginUser(this.email, this.password)
-      setTimeout(() => {
-        this.store.isLogeddIn? this.$router.push( '/index') : console.error('user is not authenticated')
-      }, 1500);
+      if(!this.isDisabled) {
+        this.loader = true;
+        this.store.loginUser(this.email, this.password)
+        setTimeout(() => {
+          this.store.isLogeddIn ? this.$router.push('/index') : this.triggerWarning('Something unexpected happened');
+          console.error('user is not authenticated')
+          this.loader = false;
+        }, 2000);
+      } else {
+        this.triggerWarning('Please fill out the login form');
+      }
     }
   }
 }
@@ -35,7 +51,7 @@ export default {
 
 <template>
   <div class="container">
-    <form class="form-container" @submit.prevent="loginSubmit">
+    <q-form autofocus class="form-container" @keydown.enter.prevent="loginSubmit">
       <!-- Email input -->
       <q-input v-model="email" label="Email"/>
 
@@ -43,11 +59,11 @@ export default {
 
       <!-- Submit button -->
       <div class="flex">
-        <q-btn color="red" icon="question_mark" align="right" class="q-mt-md">Forgot password</q-btn>
+        <q-btn disable color="red" icon="question_mark" align="right" class="q-mt-md">Forgot password</q-btn>
         <q-space />
-        <q-btn color="green" @click="loginSubmit" :disabled=isDisabled icon="check" align="right" class="q-mt-md">Sign in</q-btn>
+        <q-btn color="green" :loading="loader" @click="loginSubmit" :disabled=isDisabled icon="check" align="right" class="q-mt-md">Sign in</q-btn>
       </div>
-    </form>
+    </q-form>
   </div>
 </template>
 

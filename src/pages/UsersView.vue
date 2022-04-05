@@ -1,14 +1,14 @@
 <template>
-  <div class="flex justify-between" v-if="rolesData">
-    <h4 >All roles </h4>
+  <div class="flex justify-between" v-if="usersData">
+    <h4 >All users </h4>
     <div class="button-container-top-right">
       <q-btn icon="add" color="blue"> Create new </q-btn>
     </div>
   </div>
   <div class="d-flex justify-content-center">
     <q-table
-      v-if="rolesData"
-      :rows="rolesData"
+      v-if="usersData"
+      :rows="usersData"
       :columns="columns"
       flat
       :pagination="{page:1,rowsPerPage: 0}"
@@ -64,27 +64,27 @@ const columns = [
     sortable: true
   },
 
-  // { name: 'Base path', label: 'Path', align: 'left', field: row => row.base_path, sortable: true },
+  { name: 'Email', label: 'Path', align: 'left', field: row => row.email, sortable: true },
   // { name: 'Routes', align: 'center', label: 'Routes', field: row => console.log(row), sortable: true },
   // { name: 'Roles', label: 'Roles', field: row => row.roles },
 ]
 export default {
-  name: 'rolesView',
+  name: 'usersView',
   data() {
     return {
       columns,
-      rolesData: null
+      usersData: null
     }
   },
   methods: {
     redirect(row){
-      this.$router.push({name:'role', params: {id: row.id}})
+      this.$router.push({name:'userView', params: {id: row.id}})
     }
   },
   async mounted() {
-    await fetch(`${process.env.API_URL}/roles`)
+    await fetch(`${process.env.API_URL}/users`)
       .then(response => response.json())
-      .then(data => (this.rolesData = data));
+      .then(data => (this.usersData = data));
   },
 }
 </script>

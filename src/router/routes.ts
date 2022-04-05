@@ -7,6 +7,17 @@ const routes: RouteRecordRaw[] = [
     component: () => import('pages/LoginPage.vue')
   },
   {
+    path: '/',
+    component: () => import('layouts/SetupLayout.vue'),
+    children: [
+      {
+        name: 'welcomeSetup',
+        path: '/setup',
+        component: () => import('pages/WelcomeSetup.vue')
+      },
+    ],
+  },
+  {
     path: '/dashboard',
     component: () => import('layouts/MainLayout.vue'),
     children: [
@@ -32,7 +43,7 @@ const routes: RouteRecordRaw[] = [
       },
       {
         path: '/api',
-        name: 'api',
+        name: 'apis',
         component: () => import('pages/ApiView.vue')
       },
       {
@@ -42,8 +53,18 @@ const routes: RouteRecordRaw[] = [
       },
       {
         path: '/api/:id/routes',
-        name: 'ApiRoute',
+        name: 'apiRoute',
         component: () => import('pages/ApiRoute.vue')
+      },
+      {
+        path: '/users',
+        name: 'users',
+        component: () => import('pages/UsersView.vue')
+      },
+      {
+        path: '/user/:id/edit',
+        name: 'userView',
+        component: () => import('pages/UserView.vue')
       },
       // Always leave this as last one,
       // but you can also remove it

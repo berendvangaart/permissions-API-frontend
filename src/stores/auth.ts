@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia';
+import * as Process from 'process';
 
 export const useAuthenticationStore = defineStore({
   id: 'auth',
@@ -13,7 +14,8 @@ export const useAuthenticationStore = defineStore({
   },
   actions: {
     async loginUser(login: string, password: string) {
-        const res = await fetch('http://localhost:8000/api/login', {
+
+        const res = await fetch(`${process.env.API_URL}/login`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email: login, password: password })

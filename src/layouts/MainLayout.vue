@@ -36,19 +36,19 @@
             </q-item-section>
           </q-item>
 
-          <q-item active clickable v-ripple :to="{name:'api'}">
+          <q-item active clickable v-ripple :to="{name:'apis'}">
             <q-item-section avatar>
-              <q-icon name="http" />
+              <q-icon name="api" />
             </q-item-section>
 
             <q-item-section>
-              Api
+              Api's
             </q-item-section>
           </q-item>
 
           <q-item clickable v-ripple :to="{name:'roles'}">
             <q-item-section avatar>
-              <q-icon name="groups" />
+              <q-icon name="manage_accounts" />
             </q-item-section>
 
             <q-item-section>
@@ -56,13 +56,13 @@
             </q-item-section>
           </q-item>
 
-          <q-item clickable v-ripple :to="{name:'adminCreateUser'}">
+          <q-item clickable v-ripple :to="{name:'users'}">
             <q-item-section avatar>
-              <q-icon name="person_add" />
+              <q-icon name="people" />
             </q-item-section>
 
             <q-item-section>
-              Create User
+              Users
             </q-item-section>
           </q-item>
 
@@ -108,6 +108,7 @@ export default defineComponent({
     const drawer = ref(false)
 
     return {
+      store,
       user: store.userData,
       drawer,
       toggleLeftDrawer () {
@@ -117,7 +118,8 @@ export default defineComponent({
   },
   methods: {
     logoutUser(){
-      //TODO logout user, cause this doesnt work
+      this.store.logout();
+      this.$router.push({name:'login'});
     }
   }
 });

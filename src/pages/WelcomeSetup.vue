@@ -11,11 +11,12 @@
 
         <q-input v-model="newUser.password" type="password" label="Password"/>
         <q-input v-model="newUser.passwordVerification" type="password" label="Verify Password"/>
-
+        <span v-if="!passwordEquals" class="text-subtitle1 text-red">Please make sure your password matches</span>
         <!-- Submit button -->
         <div class="flex">
           <q-space />
-          <q-btn color="green" @click="loginSubmit" :disabled=isDisabled icon="check" align="right" class="q-mt-md">Create account</q-btn>
+          <q-btn :disable="!passwordEquals" color="green" @click="loginSubmit" :disabled=isDisabled icon="check" align="right" class="q-mt-md">Create account</q-btn>
+
         </div>
       </form>
     </div>
@@ -49,7 +50,7 @@ export default {
   methods: {
     updateRole() {
       // Todo create role for this purpose
-      axios.put('http://127.0.0.1:8000/api/roles/' + this.roleId, this.role)
+      axios.put(`${process.env.API_URL}/roles/` + this.roleId, this.role)
         .then((response) => {
           // todo create and return a logged in user
           this.triggerSuccess('Role has succesfully been updated')
@@ -59,6 +60,11 @@ export default {
         })
     },
   },
+  computed: {
+    passwordEquals() {
+      return this.newUser.password == this.newUser.passwordVerification;
+    }
+  }
 
 }
 </script>

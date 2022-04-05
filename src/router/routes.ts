@@ -43,13 +43,23 @@ const routes: RouteRecordRaw[] = [
       },
       {
         path: '/api',
-        name: 'api',
+        name: 'apis',
         component: () => import('pages/ApiView.vue')
       },
       {
         path: '/api/:id/routes',
-        name: 'ApiRoute',
+        name: 'apiRoute',
         component: () => import('pages/ApiRoute.vue')
+      },
+      {
+        path: '/users',
+        name: 'users',
+        component: () => import('pages/UsersView.vue')
+      },
+      {
+        path: '/user/:id/edit',
+        name: 'userView',
+        component: () => import('pages/UserView.vue')
       },
       // Always leave this as last one,
       // but you can also remove it

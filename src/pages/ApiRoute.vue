@@ -21,6 +21,7 @@
             <q-btn v-if="toggleEdit" @click="toggleEditing()" icon="edit" color="blue"> edit</q-btn>
             <q-btn v-if="!toggleEdit" @click="updateApi()" icon="edit" color="green"> Save edit</q-btn>
             <q-btn @click="deleteApi()" icon="delete" color="red">Delete Api</q-btn>
+            <q-btn @click="this.$router.push({name: 'apis'})" icon-left="arrow" color="grey">return</q-btn>
           </div>
         </div>
       </div>

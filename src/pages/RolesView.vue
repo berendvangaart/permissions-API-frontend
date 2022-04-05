@@ -1,8 +1,13 @@
 <template>
+  <div class="flex justify-between" v-if="rolesData">
+    <h4 >All roles </h4>
+    <div class="button-container-top-right">
+      <q-btn icon="add" color="blue"> Create new </q-btn>
+    </div>
+  </div>
   <div class="d-flex justify-content-center">
     <q-table
       v-if="rolesData"
-      title="All Roles"
       :rows="rolesData"
       :columns="columns"
       flat
@@ -77,7 +82,7 @@ export default {
     }
   },
   async mounted() {
-    await fetch(`${process.env.API_URL}/api/roles`)
+    await fetch(`${process.env.API_URL}/roles`)
       .then(response => response.json())
       .then(data => (this.rolesData = data));
   },

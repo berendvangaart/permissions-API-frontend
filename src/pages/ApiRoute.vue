@@ -120,7 +120,7 @@ export default {
   name: 'ApiRoute',
   methods: {
     getApiRoutes() {
-      axios.get(`${process.env.API_URL}/api/apis/` + this.apiId + '/routes')
+      axios.get(`${process.env.API_URL}/apis/` + this.apiId + '/routes')
         .then((response) => {
           console.log(response.data)
           this.api = response.data

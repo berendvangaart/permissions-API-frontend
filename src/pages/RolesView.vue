@@ -9,7 +9,7 @@
     <q-table
       v-if="rolesData"
       :rows="rolesData"
-      :columns="columns"
+    :columns="columns"
       flat
       :pagination="{page:1,rowsPerPage: 0}"
       hide-bottom

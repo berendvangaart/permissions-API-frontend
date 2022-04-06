@@ -17,7 +17,7 @@
       </div>
       <div class="col-9">
         <q-table
-          title="All routes"
+          title="All Users"
           :rows="role.users"
           :columns="columns"
           row-key="name"
@@ -100,7 +100,7 @@ export default {
   name: 'roleView',
   methods: {
     getRoleRoutes() {
-      axios.get(`${process.env.API_URL}/roles/` + this.roleId)
+      axios.get(`${process.env.API_URL}/roles/` + this.roleId + '/showWithUsers')
         .then((response) => {
           this.role = response.data
         })

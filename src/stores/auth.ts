@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia';
-import * as Process from 'process';
 
 export const useAuthenticationStore = defineStore({
   id: 'auth',

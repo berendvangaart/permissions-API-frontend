@@ -21,6 +21,7 @@ import {useQuasar} from 'quasar';
 import {useAuthenticationStore} from "../stores/auth";
 
 export default {
+  name: 'ApiCreate',
   data() {
     const store = useAuthenticationStore()
     const $q = useQuasar()
@@ -42,9 +43,8 @@ export default {
       },
     }
   },
-  name: 'CreateApi',
   methods: {
-    addApi() {
+    apddAi() {
       this.api.user_id = this.user.id;
       axios.post('http://127.0.0.1:8000/api/apis', this.api)
         .then((response) => {

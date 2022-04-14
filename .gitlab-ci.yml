@@ -52,17 +52,13 @@ build project:
 #    - feat/cd
 
 Heroku deploy:
-  image: ruby:latest
   tags:
     - hva
   stage: deploy
   before_script:
     - gem install dpl
-    - gem install node
-    - nvm install -g serve
   script:
-    - dpl --provider=heroku --app=$HEROKU_APP_NAME --api-key=$HEROKU_API_KEY
-    - nvm serve
+    - dpl --provider=heroku --app=$HEROKU_APP_NAME --api-key=$HEROKU_API_KEY --run'npm serve'
   only:
     - master
 

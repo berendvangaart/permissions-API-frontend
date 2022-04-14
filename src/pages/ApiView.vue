@@ -81,7 +81,7 @@ export default {
       this.$router.push({name: 'apiRoute', params: {id: row.id}})
     },
     toAdd() {
-      this.$router.push({name: 'CreateApi'})
+      this.$router.push({name: 'ApiCreate'})
     }
   },
   async mounted() {

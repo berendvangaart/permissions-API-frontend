@@ -52,7 +52,7 @@ Heroku deploy:
   tags:
     - hva
   stage: deploy
-  image: ruby:latest
+  # image: ruby:latest
   before_script:
     - gem install dpl
   script:

@@ -57,7 +57,7 @@ Heroku deploy:
     - gem install dpl
   script:
     - apt-get install curl
-    - sL https://deb.nodesource.com/setup_13.x | sudo -E bash -
+    - curl sL https://deb.nodesource.com/setup_13.x | sudo -E bash -
     - apt-get install nodejs
     - dpl --provider=heroku --app=$HEROKU_APP_NAME --api-key=$HEROKU_API_KEY
     - npm serve

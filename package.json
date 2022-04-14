@@ -8,8 +8,7 @@
   "scripts": {
     "lint": "eslint --ext .js,.ts,.vue ./",
     "format": "prettier --write \"**/*.{js,ts,vue,scss,html,md,json}\" --ignore-path .gitignore",
-    "test": "jest",
-    "start": "npm serve"
+    "test": "jest"
   },
   "dependencies": {
     "@quasar/extras": "^1.0.0",
@@ -19,8 +18,7 @@
     "quasar": "^2.6.0",
     "quasar-dotenv": "^1.0.5",
     "vue": "^3.0.0",
-    "vue-router": "^4.0.0",
-    "serve": "^13.0.0"
+    "vue-router": "^4.0.0"
   },
   "devDependencies": {
     "@quasar/app-vite": "^1.0.0-alpha.0",

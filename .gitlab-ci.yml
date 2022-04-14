@@ -59,10 +59,10 @@ Heroku deploy:
   before_script:
     - gem install dpl
     - gem install node
-    - npm install -g serve
+    - nvm install -g serve
   script:
     - dpl --provider=heroku --app=$HEROKU_APP_NAME --api-key=$HEROKU_API_KEY
-    - npm serve
+    - nvm serve
   only:
     - master
 

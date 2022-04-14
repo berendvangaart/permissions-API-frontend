@@ -1,21 +1,69 @@
-pages:
+# pages:
+#   tags:
+#     - hva
+#   image: node:latest
+#   stage: deploy
+#   script:
+#     - npm i -g @quasar/cli
+#     - npm install
+#     - quasar build
+#     - mv public public-vue # GitLab Pages hooks on the public folder
+#     - mv dist public # rename the dist folder (result of npm run build)
+#     # optionally, you can activate gzip support with the following line:
+#     - find public -type f -regex '.*\.\(htm\|html\|txt\|text\|js\|css\)$' -exec gzip -f -k {} \;
+#   artifacts:
+#     paths:
+#       - public # artifact path must be /public for GitLab Pages to pick it up
+#   only:
+#     - quasar-update
+
+build project:
   tags:
     - hva
+  stage: build
   image: node:latest
-  stage: deploy
   script:
     - npm i -g @quasar/cli
     - npm install
+    - npm install -g serve
     - quasar build
     - mv public public-vue # GitLab Pages hooks on the public folder
-    - mv dist public # rename the dist folder (result of npm run build)
-    # optionally, you can activate gzip support with the following line:
-    - find public -type f -regex '.*\.\(htm\|html\|txt\|text\|js\|css\)$' -exec gzip -f -k {} \;
+    - mv dist/spa public # rename the dist folder (result of npm run build)
   artifacts:
     paths:
-      - public # artifact path must be /public for GitLab Pages to pick it up
+      - public/
   only:
-    - quasar-update
+    - master
+
+#netlify:
+#  tags:
+#    - hva
+#  stage: deploy
+#  image: node:latest
+#  script:
+#    - npm install -g netlify-cli
+#    - netlify link
+#    - netlify deploy --dir=public $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --prod
+##    - netlify deploy --dir=public
+#  only:
+#    - feat/cd
+
+Heroku deploy:
+  tags:
+    - hva
+  stage: deploy
+  image: ruby:latest
+  before_script:
+    - gem install dpl
+  script:
+    - dpl --provider=heroku --app=$HEROKU_APP_NAME --api-key=$HEROKU_API_KEY
+    - npm serve
+  only:
+    - master
+
+
+
+
 
 
 

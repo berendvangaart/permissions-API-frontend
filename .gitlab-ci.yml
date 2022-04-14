@@ -52,6 +52,7 @@ build project:
 #    - feat/cd
 
 Heroku deploy:
+  image: ruby:latest
   tags:
     - hva
   stage: deploy

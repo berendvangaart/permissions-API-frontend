@@ -1,3 +1,6 @@
+stages: 
+  - build
+  - deploy
 # pages:
 #   tags:
 #     - hva
@@ -49,10 +52,10 @@ build project:
 #    - feat/cd
 
 Heroku deploy:
+  image: ruby:latest
   tags:
     - hva
   stage: deploy
-  # image: ruby:latest
   before_script:
     - gem install dpl
   script:

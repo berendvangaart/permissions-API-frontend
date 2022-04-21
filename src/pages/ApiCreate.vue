@@ -24,23 +24,9 @@ export default {
   name: 'ApiCreate',
   data() {
     const store = useAuthenticationStore()
-    const $q = useQuasar()
-
     return {
       user: store.userData,
       api: {},
-      triggerSuccess(message) {
-        $q.notify({
-          type: 'info',
-          message: message
-        })
-      },
-      triggerWarning(message) {
-        $q.notify({
-          type: 'warning',
-          message: message
-        })
-      },
     }
   },
   methods: {
@@ -49,7 +35,7 @@ export default {
       axios.post('http://127.0.0.1:8000/api/apis', this.api)
         .then((response) => {
           this.api = response.data
-          this.triggerSuccess('Api has succesfully been added')
+          this.$q.notify({type:'positive',message:'Api has succesfully been added'})
           this.returnToApiView()
         })
         .catch((error) => {
@@ -60,7 +46,6 @@ export default {
       this.$router.push({name: 'apis'})
     }
   }
-
 }
 
 </script>

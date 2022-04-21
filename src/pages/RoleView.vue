@@ -77,24 +77,11 @@ const columns = [
 ]
 export default {
   data() {
-    const $q = useQuasar()
     return {
       toggleEdit: true,
       role: {},
       columns,
       roleId: this.$route.params.id,
-      triggerSuccess (message) {
-        $q.notify({
-          type: 'info',
-          message: message
-        })
-      },
-      triggerWarning (message) {
-        $q.notify({
-          type: 'warning',
-          message: message
-        })
-      },
     }
   },
   name: 'roleView',
@@ -112,11 +99,11 @@ export default {
       axios.put(`${process.env.API_URL}/roles/` + this.roleId, this.role)
         .then((response) => {
           this.role = response.data
-          this.triggerSuccess('Role has succesfully been updated')
+          this.$q.notify({type:'positive',message:'Role has succesfully been updated'})
           this.toggleEditing()
         })
         .catch((error) => {
-          this.triggerWarning(error.toString())
+          this.$q.notify({type:'warning',message:error.toString()})
           this.toggleEditing()
         })
     },
@@ -124,7 +111,7 @@ export default {
       axios.delete(`${process.env.API_URL}/users/`+ id +'/removerole/' + this.roleId)
         .then((response) => {
           this.role = response.data
-          this.triggerSuccess('User has succesfully been removed')
+          this.$q.notify({type:'positive',message:'User has succesfully been removed'})
         })
         .catch((error) => {
           this.triggerWarning(error.toString())

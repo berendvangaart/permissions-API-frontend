@@ -63,10 +63,6 @@ const columns = [
     field: row => row.name,
     sortable: true
   },
-
-  // { name: 'Base path', label: 'Path', align: 'left', field: row => row.base_path, sortable: true },
-  // { name: 'Routes', align: 'center', label: 'Routes', field: row => console.log(row), sortable: true },
-  // { name: 'Roles', label: 'Roles', field: row => row.roles },
 ]
 export default {
   name: 'rolesView',

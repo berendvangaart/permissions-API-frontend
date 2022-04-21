@@ -6,16 +6,16 @@
       <form class="form-container" @submit.prevent="loginSubmit">
         <!-- Email input -->
 
-        <q-input v-model="newUser.name" label="Name"/>
-        <q-input v-model="newUser.email" label="Email"/>
+        <q-input v-model="adminUser.name" label="Name"/>
+        <q-input v-model="adminUser.email" label="Email"/>
 
-        <q-input v-model="newUser.password" type="password" label="Password"/>
-        <q-input v-model="newUser.passwordVerification" type="password" label="Verify Password"/>
+        <q-input v-model="adminUser.password" type="password" label="Password"/>
+        <q-input v-model="adminUser.passwordVerification" type="password" label="Verify Password"/>
         <span v-if="!passwordEquals" class="text-subtitle1 text-red">Please make sure your password matches</span>
         <!-- Submit button -->
         <div class="flex">
           <q-space />
-          <q-btn :disable="!passwordEquals" color="green" @click="loginSubmit" :disabled=isDisabled icon="check" align="right" class="q-mt-md">Create account</q-btn>
+          <q-btn :disable="!passwordEquals" color="green" @click="createAdminUser" icon="check" align="right" class="q-mt-md">Create account</q-btn>
 
         </div>
       </form>
@@ -25,44 +25,36 @@
 
 <script lang="ts">
 import axios from 'axios';
-import { useQuasar } from 'quasar'
+import {useAuthenticationStore} from 'stores/auth';
+
 
 export default {
   name: 'WelcomeSetup',
   data() {
-    const $q = useQuasar()
+    const store = useAuthenticationStore();
     return {
-      newUser: {},
-      triggerSuccess (message) {
-        $q.notify({
-          type: 'info',
-          message: message
-        })
-      },
-      triggerWarning (message) {
-        $q.notify({
-          type: 'warning',
-          message: message
-        })
-      },
+      adminUser: {},
+      store,
     }
   },
   methods: {
-    updateRole() {
-      // Todo create role for this purpose
-      axios.put(`${process.env.API_URL}/roles/` + this.roleId, this.role)
+    createAdminUser() {
+      axios.post(`${process.env.API_URL}/users/setup`,this.adminUser)
         .then((response) => {
-          // todo create and return a logged in user
-          this.triggerSuccess('Role has succesfully been updated')
+          this.store.loginCreatedUser(response.data)
+          this.$q.notify({type:'positive',message:'User has succesfully been created!'})
+          this.$router.push({name:'home'})
         })
         .catch((error) => {
-          this.triggerWarning(error.toString())
+          for(const [key, err] of Object.entries(error.response.data)){
+            this.$q.notify({type:'warning',message:err.toString()})
+          }
         })
     },
   },
   computed: {
     passwordEquals() {
-      return this.newUser.password == this.newUser.passwordVerification;
+      return this.adminUser.password == this.adminUser.passwordVerification;
     }
   }
 

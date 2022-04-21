@@ -96,25 +96,12 @@ const columns = [
 ]
 export default {
   data() {
-    const $q = useQuasar()
     return {
       toggleEdit: true,
       api: {},
       columns,
       // TODO hand selected Api object to include selected api beforehand
       apiId: this.$route.params.id,
-      triggerSuccess(message) {
-        $q.notify({
-          type: 'info',
-          message: message
-        })
-      },
-      triggerWarning(message) {
-        $q.notify({
-          type: 'warning',
-          message: message
-        })
-      },
     }
   },
   name: 'ApiRoute',
@@ -133,27 +120,27 @@ export default {
       axios.put(`${process.env.API_URL}/apis/` + this.apiId, this.api)
         .then((response) => {
           this.api = response.data
-          this.triggerSuccess('Api has succesfully been updated')
+          this.$q.notify({type:'positive',message:'Api has succesfully been updated'})
           this.toggleEditing()
         })
         .catch((error) => {
-          this.triggerWarning(error.toString())
+          this.$q.notify({type:'warning',message:error.toString()})
           this.toggleEditing()
         })
-    },
-    toggleEditing() {
-      this.toggleEdit = !this.toggleEdit
     },
     deleteApi() {
       axios.delete(`${process.env.API_URL}/apis/` + this.apiId)
         .then((response) => {
           this.api = response.data
-          this.triggerSuccess('Api has succesfully been removed')
+          this.$q.notify({type:'positive',message:'Api has succesfully been removed'})
           this.$router.push({name: 'apis'})
         })
         .catch((error) => {
-          this.triggerWarning(error.toString())
+          this.$q.notify({type:'warning',message:error.toString()})
         })
+    },
+    toggleEditing() {
+      this.toggleEdit = !this.toggleEdit
     },
   },
   mounted() {

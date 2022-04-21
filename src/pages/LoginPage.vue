@@ -1,6 +1,6 @@
 <script>
 import { useAuthenticationStore } from '../stores/auth';
-import { useQuasar } from 'quasar';
+import axios from 'axios';
 
 export default {
   setup() {
@@ -11,17 +11,11 @@ export default {
   },
 
   data() {
-    const $q = useQuasar();
     return {
       loader:false,
       email: '',
       password: '',
-      triggerWarning (message) {
-        $q.notify({
-          type: 'warning',
-          message: message
-        })
-      },
+      disabledResponse: false
     }
   },
   name: 'LoginPage',
@@ -36,13 +30,29 @@ export default {
         this.loader = true;
         this.store.loginUser(this.email, this.password)
         setTimeout(() => {
-          this.store.isLogeddIn ? this.$router.push('/index') : this.triggerWarning('Something unexpected happened');
+          this.store.isLogeddIn ? this.$router.push({name:'home'}) :
+            this.$q.notify({type:'warning',message:'Something unexpected happened'})
           console.error('user is not authenticated')
           this.loader = false;
         }, 2000);
       } else {
-        this.triggerWarning('Please fill out the login form');
+        this.$q.notify({type:'warning',message:'Please fill out the login form'})
       }
+    },
+    welcomeSetup() {
+      axios.get(`${process.env.API_URL}/setupcheck`)
+        .then((response) => {
+          if(response.data) {
+            this.disabledResponse = true;
+            this.$q.notify({type:'info',message:'Setup has already been completed'})
+          } else {
+            this.$router.push({name:'welcomeSetup'})
+          }
+        })
+        .catch((error) => {
+          this.$q.notify({type:'warning',message:error.toString()})
+        })
+      this.disabledResponse = true;
     }
   }
 }
@@ -63,13 +73,25 @@ export default {
         <q-space />
         <q-btn color="green" :loading="loader" @click="loginSubmit" :disabled=isDisabled icon="check" align="right" class="q-mt-md">Sign in</q-btn>
       </div>
+      <div class="flex">
+        <q-space />
+      </div>
     </q-form>
+  </div>
+
+  <div class="flex">
+    <q-space />
+    <q-btn color="grey" @click="welcomeSetup"  :disable="disabledResponse" icon="settings" align="right" class="q-mt-md welcomeSetup">Setup</q-btn>
   </div>
 </template>
 
 
 <style scoped lang="scss">
-
+.welcomeSetup {
+  position:absolute;
+  right:5px;
+  bottom:5px;
+}
 .container {
   margin-top: 300px;
   display: flex;

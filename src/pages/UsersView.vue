@@ -65,8 +65,6 @@ const columns = [
   },
 
   { name: 'Email', label: 'Path', align: 'left', field: row => row.email, sortable: true },
-  // { name: 'Routes', align: 'center', label: 'Routes', field: row => console.log(row), sortable: true },
-  // { name: 'Roles', label: 'Roles', field: row => row.roles },
 ]
 export default {
   name: 'usersView',

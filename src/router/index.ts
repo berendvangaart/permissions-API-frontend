@@ -32,13 +32,15 @@ export default route(function (/* { store, ssrContext } */) {
     history: createHistory(process.env.VUE_ROUTER_BASE),
   });
 
-  // Router.beforeEach((to, from) => {
+  /*
+  * Router gaurd that redirects if user isn't logged in
+  */
+  // Router.beforeEach((to, from,next) => {
   //   const store = useAuthenticationStore()
-  //
-  //   if (store.isLogeddIn) {
-  //     return true
+  //   if (!store.isLogeddIn && to.name != 'login') {
+  //     return next({name: 'login',replace:true});
   //   }
-  //   return to.name == 'login';
+  //   return next()
   // })
 
   return Router;

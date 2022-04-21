@@ -26,7 +26,13 @@ export const useAuthenticationStore = defineStore({
           this.userData = data.user;
         }
     },
-
+    loginCreatedUser(data){
+      if(data) {
+        this.token = data.token;
+        this.loginSucces = true;
+        this.userData = data.user;
+      }
+    },
     logout() {
       this.token = ''
       this.loginSucces = false
